@@ -1,0 +1,77 @@
+<!------------------------------------------------------------
+  文件名:   ch3-2.html
+  第三章:   directive 用法
+  开发平台: VSCode 1.39.1
+  Vue 实战小慕读书中后台 By Sam
+------------------------------------------------------------->
+<html>
+  <head>
+    <title>directive 用法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <div v-loading="isLoading">{{data}}</div>
+      <button @click="update">更新</button>
+    </div>
+    <script>
+      // 注册一个全局自定义指令 `v-loading`
+      // <div v-loading="isLoading">{{data}}</div>
+      Vue.directive('loading', {
+        // 当被绑定的元素更新到 DOM 中时……
+        update(el, binding, vnode) {
+          console.log(el,binding,vnode);
+          if (binding.value) {
+            console.log('绑定值为真',binding.value)
+            const div = document.createElement('div')
+            div.innerText = '加载中...'
+            // 设置弹层
+            div.setAttribute('id', 'loading')
+            div.style.position = 'absolute'
+            div.style.left = 0
+            div.style.top = 0
+            div.style.width = '100%'
+            div.style.height = '100%'
+            div.style.display = 'flex'
+            div.style.justifyContent = 'center'
+            div.style.alignItems = 'center'
+            div.style.color = 'white'
+            div.style.background = 'rgba(0, 0, 0, .7)'
+            document.body.append(div)
+          } else {
+            console.log('绑定值为假',binding.value)
+            // 删除弹层
+            let id_loading = document.body.removeChild(document.getElementById('loading'))
+            console.log(id_loading)
+          }
+
+        }
+
+      })
+
+      // 创建实例
+      new Vue({
+        el: '#root',
+        data() {
+          return {
+            // 设置flag
+            isLoading: false,
+            data: ''
+          }
+        },
+        methods: {
+          update() {
+            // 重设flag
+            this.isLoading = true
+            setTimeout(() => {
+              this.data = '用户数据'
+              // 改回flag
+              this.isLoading = false
+            }, 3000)
+          }
+        }
+      })
+
+    </script>
+  </body>
+</html>
