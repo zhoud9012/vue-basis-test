@@ -71,3 +71,13 @@ use 注册全局插件
 
 vue 过滤语法
 ```
+# watch 功能未知
+```
+貌似不能
+```
+# style class 各种用法
+
+# observable
+```
+状态管理
+```
