@@ -81,3 +81,9 @@ vue 过滤语法
 ```
 状态管理
 ```
+# slot
+```
+组件件数据透穿
+参考文献
+https://blog.csdn.net/zhouzuoluo/article/details/80536754
+```
