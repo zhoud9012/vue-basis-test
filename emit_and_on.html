@@ -16,19 +16,28 @@
     <script>
       new Vue({
         el: '#root',
+        // 初始化利用return 为this设置属性
         data() {
           return {
             message: 'hello vue'
           }
         },
         created() {
+          // $on 先注册事件 my_events
+          // 保持监听 my_events
+          // 等待被$emit 触发
           this.$on('my_events', this.handleEvents)
         },
         methods: {
+          //注入方法
           handleEvents(e) {
             console.log(this.message, e)
+            console.log(this.handleEvents, e)
+            console.log(this.boost, e)
           },
+          // 点击调用
           boost() {
+            // $emit 触发被 $on 注册的事件
             this.$emit('my_events', 'my params')            
           }
         }
