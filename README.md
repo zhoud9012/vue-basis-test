@@ -47,3 +47,12 @@ extend 方法生成组件需要 $mount 方可
 
 注意$mount 生命周期 也许需要延时才能调用成功
 ```
+
+# use
+```
+注册全局插件
+如果plugin(Vue.use的第一个参数)传入一个对象，对象中包含install方法，则调用这个plugin的install方法并将整理好的数组当成参数传入install方法中。 =>plugin.install.apply(plugin, args)
+
+参考文献
+https://www.jianshu.com/p/0b9d3e3f710f
+```
