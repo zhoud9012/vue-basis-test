@@ -1,0 +1,43 @@
+<!------------------------------------------------------------
+  文件名:   ch3-3.html
+  第三章:   Vue.component 用法
+  开发平台: VSCode 1.39.1
+  Vue 实战小慕读书中后台 By Sam
+------------------------------------------------------------->
+<html>
+  <head>
+    <title>Vue.component 用法</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- Test组件的 props.msg 赋值this.message --> 
+      <Test :msg="message"></Test>
+    </div>
+    <script>
+
+      // 组件 名称对应标签对 <Test :msg="message"></Test>
+      Vue.component('Test', {
+        template: '<div>{{msg}}</div>',
+        props: {
+          "msg": {
+            type: String,
+            default: 'default message'
+          }
+        }
+      })
+
+      // 实例化
+      new Vue({
+        // 表示实力范围 ID 为 root的地方
+        el: '#root',
+        data() {
+          return {
+            message: "Test Component"
+          }
+        }
+      })
+
+    </script>
+  </body>
+</html>
