@@ -1,0 +1,83 @@
+<!------------------------------------------------------------
+  文件名:   ch4-1.html
+  第三章:   组件通信 provide 和 inject
+  开发平台: VSCode 1.39.1
+  Vue 实战小慕读书中后台 By Sam
+------------------------------------------------------------->
+<html>
+  <head>
+    <title>组件通信 provide 和 inject</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <!--只使用了Test组件-->
+      <Test></Test>
+    </div>
+    <script>
+
+      function registerPlugin() {
+
+        // 组件1
+        Vue.component('Test', {
+
+          template: '<div>{{message}}<Test2/></div>',
+
+          // 提供对象 elTest => this
+          provide() {
+            return {
+              elTest: this
+            }
+          }, // function 的用途是为了获取运行时环境，否则 this 将指向 window
+
+          // 
+          data() {
+            return {
+              message: 'message from Test'
+            }
+          },
+
+          // 
+          methods: {
+            //切换组件
+            change(component) {
+              this.message = 'message from ' + component
+            }
+          }
+          
+        })
+
+        // 组件2
+        Vue.component('Test2', {
+          template: '<Test3 />'
+        })
+
+        // 组件3
+        Vue.component('Test3', {
+          template: '<button @click="changeMessage">change</button>',
+
+          // 注入对象 elTest
+          inject: ['elTest'],
+
+          methods: {
+            changeMessage() {
+              // 调用组件帮注册好 放到change options._componentTag 获取组件名称
+              console.log(this.$options._componentTag)
+              this.elTest.change(this.$options._componentTag)
+            }
+          }
+
+        })
+      
+      }
+
+      //注册全局插件
+      Vue.use(registerPlugin)
+
+      new Vue({
+        el: '#root'
+      })
+
+    </script>
+  </body>
+</html>
