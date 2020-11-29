@@ -64,3 +64,10 @@ use 注册全局插件
 
 组件间通过 provide 与 inject 通信
 ```
+
+# vue 过滤
+```
+{{message | lower}}
+
+vue 过滤语法
+```
