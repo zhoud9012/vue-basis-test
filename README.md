@@ -56,3 +56,11 @@ extend 方法生成组件需要 $mount 方可
 参考文献
 https://www.jianshu.com/p/0b9d3e3f710f
 ```
+
+# provide inject
+```
+use 注册全局插件
+插件中可以放置组件
+
+组件间通过 provide 与 inject 通信
+```
